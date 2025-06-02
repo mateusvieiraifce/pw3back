@@ -3,6 +3,14 @@ const User = require('./models/User');
 const Product = require('./models/Produtos');
 const app = express();
 const port = 3000;
+//usar cors 
+const cors = require('cors');
+//configurar cors
+app.use(cors({
+    origin: '*', // Permitir todas as origens
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Cabeçalhos permitidos
+}));
 
 app.use(express.urlencoded({ extended: true }));
 //app.unsubscribe(express.urlencoded({extended:true}));
