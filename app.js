@@ -8,8 +8,11 @@ const app = express();
 app.use(express.json());
 
 // Rotas
-app.use('/api/', userRoutes);
+app.use('/', userRoutes);
 
+app.get('/',(req,res)=>{
+    res.send('olá mundo, nov dsadso');
+});
 
 
 // Sincronizar modelos e iniciar servidor
