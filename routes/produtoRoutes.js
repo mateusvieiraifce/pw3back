@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const produtoController = require('../controllers/ProdutoController');
+const produtoController = require('../controllers/ProdutosController');
 
 // Rotas CRUD
 router.get('/produto', ProdutoController.List);

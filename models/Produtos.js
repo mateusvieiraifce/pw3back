@@ -31,7 +31,8 @@ const Product = sequelize.define('Product', {
     },
     quantidade: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true, // Permite valores nulos
+        defaultValue: 0 // Define um valor padrão de 0
     },
     
 }, {

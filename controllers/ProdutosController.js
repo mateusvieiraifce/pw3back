@@ -1,43 +1,61 @@
 const { where } = require('sequelize')
-const TipoProduto = require('../models/TipoProduto')
+const Produto = require('../models/Produtos');
 const Sequelize = require('sequelize');
-const Product = require('../models/Produtos');
 
 module.exports = class ProdutosController {
 
+    // Listar todos os produtos
     static async List(req, res, next) {
 
-        const tipos = await Produtos.findAll();
+        const tipos = await Produto.findAll();
         res.status(200).json({ tipos: tipos })
     }
 
+    // Criar um novo produto
     static  async create(req,res, next){
-        const { descricao } = req.body
-        if (!descricao) {
-            res.status(422).json({ message: 'a descrição é obrigatória' })
-            return
+            
+            const { name, barcode, tipoProdutoId, price, quantidade } = req.body
+            
+            // Verifica se o nome foi enviado
+            if (!barcode) {
+                res.status(422).json({ message: 'O código de barras é obrigatório' })
+                return
+            }
+            if (!name) {
+                res.status(422).json({ message: 'O nome é obrigatório' })
+                return
+            }
+            if (!tipoProdutoId) {
+                res.status(422).json({ message: 'O tipo de produto é obrigatório' })
+                return
+            }
+            if (!price) {
+                res.status(422).json({ message: 'O preço é obrigatório' })
+                return
+            }
+            
+            // Verifica se o produto já existe
+            const produtoExist = await Produto.findOne({ where: { name: name } })
+    
+            if (produtoExist) {
+                res.status(422).json({ message: 'Produto já cadastrado' })
+                return
+            }
+            
+            // Cria um novo produto
+            const produto = new Produto({
+                barcode, nome, tipoProdutoId, price, quantidade
+            })
+            try {
+                const save = await produto.save()
+                res.status(201).json({ produto: produto, message: "Produto salvo com sucesso!" })
+            } catch (error) {
+                console.log(error)
+                res.status(500).json({ message: error })
+            }
         }
 
-        const tipoExist = await TipoProduto.findOne({ where: { descricao:descricao } })
-
-        if (tipoExist) {
-            res.status(422).json({ message: 'tipo já cadastrado' })
-            return
-        }
-        
-        // const user = new TipoProduto({
-        const tipo = new TipoProduto({
-            descricao,
-        })
-        try {
-            const save = await tipo.save()
-            res.status(201).json({ tipo: tipo, message: "Tipo salvo com sucesso!" })
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ message: error })
-        }
-    }
-
+    // Deletar um produto
     static async delete(req,res,next) {
         const { id } = req.params
         if (!id) {
@@ -45,7 +63,7 @@ module.exports = class ProdutosController {
             return
         }
 
-        const product = await Produtos.findByPk(id)
+        const product = await Produto.findByPk(id)
         if (!product) {
             res.status(404).json({ message: 'Produto não encontrado' })
             return
@@ -76,6 +94,7 @@ module.exports = class ProdutosController {
     //     res.status(200).json({ user: user })
     // }
     
+    // Atualizar um produto
     static  async update(req,res, next){
         const {name} = req.body
         const { id } = req.params
