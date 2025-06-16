@@ -8,16 +8,16 @@ module.exports = class ProdutosController {
     static async List(req, res, next) {
 
         const tipos = await Produto.findAll();
-        res.status(200).json({ tipos: tipos })
+        res.status(200).json({ produtos: tipos })
     }
 
     // Criar um novo produto
     static  async create(req,res, next){
             
-            const { name, barcode, tipoProdutoId, price, quantidade } = req.body
+            const { name, barCode, tipoProdutoId, price, quantidade } = req.body
             
             // Verifica se o nome foi enviado
-            if (!barcode) {
+            if (!barCode) {
                 res.status(422).json({ message: 'O código de barras é obrigatório' })
                 return
             }
@@ -44,7 +44,7 @@ module.exports = class ProdutosController {
             
             // Cria um novo produto
             const produto = new Produto({
-                barcode, nome, tipoProdutoId, price, quantidade
+                barCode, name, tipoProdutoId, price, quantidade
             })
             try {
                 const save = await produto.save()

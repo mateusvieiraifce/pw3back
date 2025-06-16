@@ -18,12 +18,9 @@ const Product = sequelize.define('Product', {
         allowNull: false
     },
     tipoProdutoId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'TipoProduto', // Nome da tabela referenciada
-            key: 'id' // Chave primária da tabela referenciada
-        }
+       
     },
     price: {
         type: DataTypes.FLOAT,
@@ -40,8 +37,6 @@ const Product = sequelize.define('Product', {
 });
 
 // Relação Produto e TipoProduto
-Product.belongsTo(TipoProduto, {foreignKey: 'tipoProdutoId'});
-TipoProduto.hasMany(Product, {foreignKey: 'tipoProdutoId'});
 
 // Sincronizar o modelo com o banco de dados
 (async () => {

@@ -3,14 +3,14 @@ const router = express.Router();
 const produtoController = require('../controllers/ProdutosController');
 
 // Rotas CRUD
-router.get('/produto', ProdutoController.List);
-router.post('/produto', ProdutoController.create);
-router.delete('/produto/delete/:id', ProdutoController.delete);
-router.put('/produto/:id', ProdutoController.update);
-// router.get('/produto/:id', ProdutoController.getById);
+router.get('/produtos', produtoController.List);
+router.post('/produtos', produtoController.create);
+router.delete('/produtos/delete/:id', produtoController.delete);
+router.put('/produtos/:id', produtoController.update);
+// router.get('/produtos/:id', ProdutoController.getById);
 
 module.exports = router
-//router.get('/produto', ProdutoController.list);
-//router.get('/produto/:id', ProdutoController.show);
-//router.put('/produto/:id', ProdutoController.update);
-//router.delete('/produto/:id', ProdutoController.delete);
+//router.get('/produtos', ProdutoController.list);
+//router.get('/produtos/:id', ProdutoController.show);
+//router.put('/produtos/:id', ProdutoController.update);
+//router.delete('/produtos/:id', ProdutoController.delete);

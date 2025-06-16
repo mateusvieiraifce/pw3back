@@ -3,6 +3,7 @@ const userRoutes = require('./routes/userRoutes');
 const sequelize = require('./config/database');
 const tipoProdutoRoutes = require('./routes/tipoProdutoRoutes')
 const controllerUser = require('./controllers/UserController')
+const produtoRoute = require('./routes/produtoRoutes');
 const app = express();
 const cors = require('cors');
 const jwt = require("jsonwebtoken")
@@ -49,6 +50,7 @@ app.post("/v1/login",controllerUser.login)
 app.use('/v1/',verifyJwt, tipoProdutoRoutes);
 // Rotas
 app.use('/v1/',verifyJwt, userRoutes);
+app.use('/v1/',verifyJwt, produtoRoute);
 
 
 
