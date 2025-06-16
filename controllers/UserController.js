@@ -19,7 +19,7 @@ module.exports = class UserController {
             return res.status(401).json({msg:"senha inválda"})    
         }
         //console.log(SECRET);
-        jwt.sign({id:userBD.id},SECRET,{expiresIn:300}, (err,token)=>{
+        jwt.sign({id:userBD.id},SECRET,{expiresIn:"1h"}, (err,token)=>{
             if (err){
                 return res.status(500).json({error:err.message})
             }
