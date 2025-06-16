@@ -6,10 +6,10 @@ const clienteController = require('../controllers/ClienteController');
 
 // Rotas CRUD
 router.get('/clientes', clienteController.List);
-router.post('/cliente/create', clienteController.create);
-router.delete('/cliente/delete/:id', clienteController.delete);
-router.get('/cliente/:id', clienteController.getById);
-router.put('/cliente/:id', clienteController.update);
+router.post('/clientes', clienteController.create);
+router.delete('/clientes/:id', clienteController.delete);
+router.get('/clientes/:id', clienteController.getById);
+router.put('/clientes/:id', clienteController.update);
 
 
 module.exports = router
