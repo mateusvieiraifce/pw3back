@@ -1,48 +1,37 @@
 const { where } = require('sequelize')
-const Cliente = require('../models/Cliente')
+const Vendas = require('../models/Vendas')
 const Sequelize = require('sequelize')
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 const SECRET = process.env.SECRET; 
 
-module.exports = class ClienteController {
+module.exports = class VendasController {
 
      static async List(req, res, next) {
 
-        const clientes = await Cliente.findAll();
-        res.status(200).json({ clientes: clientes })
+        const clientes = await Vendas.findAll();
+        res.status(200).json({ vendas: clientes })
     }
 
     static  async create(req,res, next){
-        const { name, adress, cpf } = req.body
-        if (!name) {
+        const { idCliente, total, itens} = req.body
+        if (!idCliente) {
             res.status(422).json({ message: 'o nome é obrigatório' })
             return
         }
-        if (!adress) {
+        if (!total) {
             res.status(422).json({ message: 'o Endereço é obrigatório' })
             return
         }
-        if (!cpf) {
-            res.status(422).json({ message: 'o Cpf é obrigatório' })
-            return
-        }
+       
+        const venda = new Vendas({
+            idCliente,
+            total,
+        });
 
-        const clienteExist = await Cliente.findOne({ where: { cpf: cpf } })
-
-        if (clienteExist) {
-            res.status(422).json({ message: 'cpf já cadastrado' })
-            return
-        }
-
-        const cliente = new Cliente({
-            name,
-            adress,
-            cpf,
-        })
         try {
-            const save = await cliente.save()
-            res.status(201).json({ cliente: cliente, message: "Cliente salvo com sucesso!" })
+            const save = await venda.save()
+            res.status(201).json({ venda: venda, itens:itens, message: "Cliente salvo com sucesso!" })
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: error })

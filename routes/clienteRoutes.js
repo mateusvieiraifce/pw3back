@@ -7,9 +7,10 @@ const clienteController = require('../controllers/ClienteController');
 // Rotas CRUD
 router.get('/clientes', clienteController.List);
 router.post('/clientes', clienteController.create);
-router.delete('/clientes/:id', clienteController.delete);
-router.get('/clientes/:id', clienteController.getById);
-router.put('/clientes/:id', clienteController.update);
+router.delete('/cliente/:id', clienteController.delete);
+router.get('/cliente/:id', clienteController.getById);
+router.put('/cliente/:id', clienteController.update);
+
 
 
 module.exports = router
