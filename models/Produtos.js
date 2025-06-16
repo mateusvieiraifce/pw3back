@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const TipoProduto = require('./TipoProduto');
 
 const Product = sequelize.define('Product', {
     id: {
@@ -16,8 +17,20 @@ const Product = sequelize.define('Product', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    tipoProdutoId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'TipoProduto', // Nome da tabela referenciada
+            key: 'id' // Chave primária da tabela referenciada
+        }
+    },
     price: {
         type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    quantidade: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     
@@ -25,11 +38,14 @@ const Product = sequelize.define('Product', {
     timestamps: true // Cria campos createdAt e updatedAt automaticamente
 });
 
-// Sincronizar o modelo com o banco de dados
+// Relação Produto e TipoProduto
+Product.belongsTo(TipoProduto, {foreignKey: 'tipoProdutoId'});
+TipoProduto.hasMany(Product, {foreignKey: 'tipoProdutoId'});
+
 // Sincronizar o modelo com o banco de dados
 (async () => {
     await Product.sync();
-    console.log('Modelo User sincronizado com o banco de dados.');
+    console.log('Modelo Produto sincronizado com o banco de dados.');
 })();
 
 module.exports = Product;
