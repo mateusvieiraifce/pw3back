@@ -6,6 +6,7 @@ const controllerUser = require('./controllers/UserController')
 const produtoRoute = require('./routes/produtoRoutes');
 const clientesRoutes = require("./routes/clienteRoutes")
 const vendaRoute = require('./routes/vendasRoutes')
+const servicoRoute = require('./routes/servicoRoutes')
 const app = express();
 const cors = require('cors');
 const jwt = require("jsonwebtoken")
@@ -55,6 +56,7 @@ app.use('/v1/',verifyJwt, userRoutes);
 app.use('/v1/',verifyJwt, produtoRoute);
 app.use("/v1/", verifyJwt, clientesRoutes)
 app.use("/v1/",verifyJwt,vendaRoute)
+app.use("/v1/",verifyJwt,servicoRoute)
 
 
 
