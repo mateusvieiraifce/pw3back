@@ -85,8 +85,8 @@ module.exports = class ProdutosController {
              return
          }
 
-         const user = await User.findByPk(id)
-         if (!user) {
+         const product = await Produto.findByPk(id)
+         if (!product) {
              res.status(404).json({ message: 'Usuário não encontrado' })
              return
          }
