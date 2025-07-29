@@ -78,21 +78,21 @@ module.exports = class ProdutosController {
         }
     }
 
-    // static async getById(req, res,next){
-    //      const { id } = req.params
-    //     if (!id) {
-    //         res.status(422).json({ message: 'o id é obrigatório' })
-    //         return
-    //     }
+     static async getById(req, res,next){
+          const { id } = req.params
+         if (!id) {
+             res.status(422).json({ message: 'o id é obrigatório' })
+             return
+         }
 
-    //     const user = await User.findByPk(id)
-    //     if (!user) {
-    //         res.status(404).json({ message: 'Usuário não encontrado' })
-    //         return
-    //     }
+         const user = await User.findByPk(id)
+         if (!user) {
+             res.status(404).json({ message: 'Usuário não encontrado' })
+             return
+         }
 
-    //     res.status(200).json({ user: user })
-    // }
+         res.status(200).json({ user: user })
+     }
     
     // Atualizar um produto
     static  async update(req,res, next){
