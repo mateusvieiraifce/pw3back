@@ -91,7 +91,7 @@ module.exports = class ProdutosController {
              return
          }
 
-         res.status(200).json({ user: user })
+         res.status(200).json({ produtct: product })
      }
     
     // Atualizar um produto
