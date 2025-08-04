@@ -114,7 +114,7 @@ module.exports = class VendasController {
        
         try {
             const save = await clienteExist.save()
-            res.status(200).json({ cliente: clienteExist, message: "Cliente salvo com sucesso!" })
+            res.status(200).json({ vendas: clienteExist, message: "Cliente salvo com sucesso!" })
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: error })

@@ -1,4 +1,4 @@
-const express = require('express');
+.const express = require('express');
 const router = express.Router();
 const TipoProdutoController = require('../controllers/TipoProdutoController');
 
@@ -8,7 +8,7 @@ const TipoProdutoController = require('../controllers/TipoProdutoController');
 router.get('/tipoproduto', TipoProdutoController.List);
 router.post('/tipoproduto', TipoProdutoController.create);
 router.delete('/tipoproduto/delete/:id', TipoProdutoController.delete);
-// router.get('/tipoProduto/:id', TipoProdutoController.getById);
+ router.get('/tipoProduto/:id', TipoProdutoController.getById);
 router.put('/tipoproduto/:id', TipoProdutoController.update);
 
 module.exports = router
