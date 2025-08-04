@@ -45,15 +45,15 @@ module.exports = class VendasController {
             return
         }
 
-        const cliente = await Cliente.findByPk(id)
+        const cliente = await Vendas.findByPk(id)
         if (!cliente) {
-            res.status(404).json({ message: 'Cliente não encontrado' })
+            res.status(404).json({ message: 'Venda não encontrado' })
             return
         }
 
         try {
             await cliente.destroy()
-            res.status(200).json({ message: 'Cliente deletado com sucesso!' })
+            res.status(200).json({ message: 'Venda deletado com sucesso!' })
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: error })
@@ -67,46 +67,51 @@ module.exports = class VendasController {
             return
         }
 
-        const cliente = await Cliente.findByPk(id)
+        const cliente = await Vendas.findByPk(id)
         if (!cliente) {
-            res.status(404).json({ message: 'cliente não encontrado' })
+            res.status(404).json({ message: 'Vendas não encontrado' })
             return
         }
 
-        res.status(200).json({ cliente: cliente })
+        res.status(200).json({ vendas: cliente })
     }
     
     static  async update(req,res, next){
-        const { name, adress, cpf } = req.body
+
+       
         const { id } = req.params
+
+         const { idCliente, total, itens} = req.body
+        if (!idCliente) {
+            res.status(422).json({ message: 'o Cliente é obrigatório' })
+            return
+        }
+        if (!total) {
+            res.status(422).json({ message: 'o total é obrigatório' })
+            return
+        }
+       
+        const venda = new Vendas({
+            idCliente,
+            total,
+        });
+
         if (!id) {
             res.status(422).json({ message: 'o id é obrigatório' })
             return
         }
         
-        if (!name) {
-            res.status(422).json({ message: 'o nome é obrigatório' })
-            return
-        }
-        if (!adress) {
-            res.status(422).json({ message: 'o endereço é obrigatório' })
-            return
-        }
-        if (!cpf) {
-            res.status(422).json({ message: 'o cpf é obrigatório' })
-            return
-        }
+        
 
-        const clienteExist = await Cliente.findByPk(id)
+        const clienteExist = await Vendas.findByPk(id)
         if (!clienteExist) {
-            res.status(404).json({ message: 'Cliente não encontrado' })
+            res.status(404).json({ message: 'Vendas não encontrado' })
             return
         }
         
-       clienteExist.name = name
-       clienteExist.adress = adress
-       clienteExist.cpf = cpf
-
+       clienteExist.idCliente = idCliente
+       clienteExist.total = total
+       
         try {
             const save = await clienteExist.save()
             res.status(200).json({ cliente: clienteExist, message: "Cliente salvo com sucesso!" })
